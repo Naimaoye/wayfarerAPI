@@ -4,7 +4,8 @@
   "description": "A transport booking API",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node API/app.js",
+    "test": "mocha API/test/appTest.js -r @babel/register"
   },
   "repository": {
     "type": "git",
