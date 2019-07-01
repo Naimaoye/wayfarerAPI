@@ -1,0 +1,53 @@
+{
+  "name": "wayfarer",
+  "version": "1.0.0",
+  "description": "A transport booking API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Naimaoye/wayfarerAPI.git"
+  },
+  "keywords": [
+    "wayfarer",
+    "API",
+    "bus",
+    "booking"
+  ],
+  "author": "Naimat Oyewale",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Naimaoye/wayfarerAPI/issues"
+  },
+  "homepage": "https://github.com/Naimaoye/wayfarerAPI#readme",
+  "dependencies": {
+    "@babel/polyfill": "^7.4.4",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.0.0",
+    "eslint": "^6.0.1",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.18.0",
+    "express": "^4.17.1",
+    "joi": "^14.3.1",
+    "jsonwebtoken": "^8.5.1",
+    "pg": "^7.11.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.5",
+    "@babel/node": "^7.4.5",
+    "@babel/preset-env": "^7.4.5",
+    "@babel/register": "^7.4.4",
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "coveralls": "^3.0.4",
+    "istanbul": "^0.4.5",
+    "mocha": "^6.1.4",
+    "mocha-lcov-reporter": "^1.3.0",
+    "nodemon": "^1.19.1",
+    "nyc": "^14.1.1"
+  }
+}
