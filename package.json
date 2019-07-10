@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node API/app.js",
-    "test": "mocha API/test/appTest.js -r @babel/register"
+    "test": "mocha API/test -r @babel/register"
   },
   "repository": {
     "type": "git",
