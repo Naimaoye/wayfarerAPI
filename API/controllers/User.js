@@ -39,9 +39,11 @@ class User {
       );
 
       return res.status(201).json({
-        token,
         status: 'success',
-        data: rows[0],
+        data: {
+          token,
+          ...user,
+        },
       });
     } catch (errors) {
       if (errors.routine === '_bt_check_unique') {
