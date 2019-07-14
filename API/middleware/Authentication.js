@@ -20,7 +20,8 @@ class Authentication {
     }
 
     static async verifyToken(req, res, next) {
-        const { token } = req.headers;
+        const token = req.headers.token || req.body.token;
+
         // check if token is provided
         if (!token) {
             return res.status(403).json({
