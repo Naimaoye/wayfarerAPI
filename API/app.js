@@ -3,6 +3,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 import user from './routes/user';
+import trip from './routes/trip';
 
 dotenv.config();
 const app = express();
@@ -12,7 +13,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 //API routes
 app.use('/api/v1/auth', user);
-
+app.use('/api/v1', trip);
 //home page route
 app.get('/', (req, res) => res.status(200).json({
   status: 200,

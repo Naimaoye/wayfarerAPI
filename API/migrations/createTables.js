@@ -30,6 +30,39 @@ const createTables = () => {
     console.log(err);
     pool.end();
   });
+
+  const Bus = `CREATE TABLE IF NOT EXISTS
+  bus (
+    bus_id SERIAL PRIMARY KEY,
+    number_plate VARCHAR(128) NOT NULL,
+    manufacturer VARCHAR(128) NOT NULL,
+    model VARCHAR(128) NOT NULL,
+    year VARCHAR(128) NOT NULL,
+    capacity INT NOT NULL,
+    created_on TIMESTAMP NOT NULL
+    )`;
+  pool.query(Bus).catch((err) => {
+    // eslint-disable-next-line no-console
+    console.log(err);
+    pool.end();
+  });
+  const Trip = `CREATE TABLE IF NOT EXISTS
+  trip (
+    trip_id SERIAL PRIMARY KEY,
+    bus_id SERIAL NOT NULL,
+    created_on TIMESTAMP DEFAULT Now(),
+    origin VARCHAR(128) NOT NULL,
+    destination VARCHAR(128) NOT NULL,
+    trip_date TIMESTAMP NOT NULL,
+    fare FLOAT(4) NOT NULL,
+    status VARCHAR(128) NOT NULL,
+    modified_on TIMESTAMP NOT NULL
+    )`;
+  pool.query(Trip).catch((err) => {
+    // eslint-disable-next-line no-console
+    console.log(err);
+    pool.end();
+  });
   
 };
 
