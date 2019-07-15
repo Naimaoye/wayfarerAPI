@@ -13,6 +13,8 @@ router.get('/bookings', Authentication.verifyToken, Bookings.getAllBookings);
 // user can delete their bookings
 router.delete('/bookings/:booking_id', Authentication.verifyToken, Bookings.deleteBooking);
 
+// user can change their seat number
+router.patch('/bookings/:booking_id', Authentication.verifyToken, Bookings.changeSeat);
 
 
 export default router;
