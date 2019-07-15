@@ -114,6 +114,81 @@ class Bookings {
     }
   }
 
+  /**
+   * Admin can get all bookings and user can get
+   * his/her bookings only
+ *@param {req} object
+ *@param {res} object
+ */
+static async getAllBookings(req, res) {
+    try {
+      if (req.user.is_admin) {
+        const { rows } = await db.query(getAllBookingsAdminQuery);
+        if (!rows[0]) {
+          return res.status(404).json({
+            status: 'error',
+            error: 'Not found',
+          });
+        }
+        return res.status(200).json({
+          status: 'success',
+          data: rows,
+        });
+      }
+      const { rows } = await db.query(getAllBookingsUserQuery, [req.user.email]);
+      if (!rows[0]) {
+        return res.status(404).json({
+          status: 'error',
+          error: 'Not found',
+        });
+      }
+      return res.status(200).json({
+        status: 'success',
+        data: rows,
+      });
+    } catch (error) {
+      return res.status(400).json({
+        error: 'Something went wrong, try again',
+      });
+    }
+  }
+
+  /**
+ * User can delete their bookings
+ * @param {*} req
+ * @param {*} res
+ */
+  static async deleteBooking(req, res) {
+    const { error } = CheckForValidInput.checkBookParams(req.params);
+    if (error) {
+      return res.status(400).json({
+        status: 'error',
+        error: error.details[0].message,
+      });
+    }
+    try {
+      const { rows } = await db.query(deleteBookingQuery,
+        [req.params.booking_id, req.user.user_id]);
+      if (!rows[0]) {
+        return res.status(404).json({
+          status: 'error',
+          error: 'Not Found',
+        });
+      }
+      return res.status(200).json({
+        status: 'success',
+        data: {
+          message: 'Deleted successfully',
+        },
+      });
+    } catch (errors) {
+      return res.status(400).json({
+        status: 'error',
+        error: 'Something went wrong, try again',
+      });
+    }
+  }
+
 
 
 }
