@@ -1,5 +1,10 @@
 import Joi from 'joi';
 
+const validationOptions = {
+  allowUnknown: true, // allow unknown keys that will be ignored
+  stripUnknown: true, // remove unknown keys from the validated data
+};
+
 class CheckForValidInput {
   /**
    * funtion to check if user input valid details during registration
@@ -7,7 +12,8 @@ class CheckForValidInput {
    */
   static createUser(user) {
     const schema = Joi.object().keys({
-      email: Joi.string().email().trim().required()
+      email: Joi.string().trim().strict().email()
+        .required()
         .error(() => 'Valid email field is required'),
       first_name: Joi.string().trim().strict().regex(/^[a-zA-Z]+$/)
         .min(3)
@@ -17,14 +23,11 @@ class CheckForValidInput {
         .min(3)
         .required()
         .error(() => 'last name field is required with min length of 3 and must be alphabet'),
-      password: Joi.string().regex(/^[a-zA-Z0-9]{6,30}$/).trim().strict()
+      password: Joi.string().trim().strict().regex(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,}$/)
         .required()
         .error(() => 'Password field is required with mininum 6 characters'),
-      address: Joi.string().trim().strict().min(25)
-        .required()
-        .error(() => 'Address field is required and should not be less than 25 characters'),
     });
-    return Joi.validate(user, schema);
+    return Joi.validate(user, schema, validationOptions);
   }
 
   /**  funtion to validate login inputs
@@ -32,14 +35,13 @@ class CheckForValidInput {
      */
   static loginAuser(details) {
     const schema = Joi.object().keys({
-      email: Joi.string().email().trim()
+      email: Joi.string().trim().strict().email()
         .required()
         .error(() => 'Email is required'),
-      password: Joi.string().regex(/^[a-zA-Z0-9]{3,30}$/).trim().strict()
-        .required()
+      password: Joi.string().trim().strict().required()
         .error(() => 'you must provide a correct password'),
     });
-    return Joi.validate(details, schema);
+    return Joi.validate(details, schema, validationOptions);
   }
 
 
@@ -49,24 +51,20 @@ class CheckForValidInput {
    */
   static createAtrip(trip) {
     const schema = Joi.object().keys({
-      bus_id: Joi.number().integer().min(1)
-        .required()
+      bus_id: Joi.number().integer()
         .error(() => 'bus id is required and should be an integer number'),
-      origin: Joi.string().trim().strict().regex(/^[a-z]+$/)
-        .min(3)
+      origin: Joi.string().trim()
         .required()
         .error(() => 'origin is required and should not be less than 3 characters and must be lowercase'),
-      destination: Joi.string().trim().strict().regex(/^[a-z]+$/)
-        .min(3)
+      destination: Joi.string().trim()
         .required()
         .error(() => 'destination is required and should not be less than 3 characters and must be lowercase'),
-      trip_date: Joi.date().required()
+      trip_date: Joi.string()
         .error(() => 'trip date is required'),
-      fare: Joi.number().min(1)
-        .required()
+      fare: Joi.number()
         .error(() => 'fare is required and can not be less than $1'),
     });
-    return Joi.validate(trip, schema);
+    return Joi.validate(trip, schema, validationOptions);
   }
 
 
@@ -76,26 +74,24 @@ class CheckForValidInput {
    */
   static addBusForTrip(bus) {
     const schema = Joi.object().keys({
-      number_plate: Joi.string().trim().strict().regex(/B[a-zA-Z]{3}-\d{3}/)
+      number_plate: Joi.string().trim().strict().regex(/^[A-Za-z]{3}-[0-9]{3}-[A-Za-z]{2}$/)
         .required()
-        .error(() => 'Number plate is required and must be correct plate-number format'),
+        .error(() => 'Number plate is required with this Nig format xxx-xxx-xxx'),
       manufacturer: Joi.string().trim().strict().regex(/^[a-zA-Z]+$/)
         .min(3)
         .required()
         .error(() => 'bus manufacturer is required'),
-      year: Joi.string().trim().strict().regex(/^[0-9]*$/)
-        .min(4)
+      year: Joi.string().trim().strict()
         .required()
         .error(() => 'Correct year format is required'),
-      capacity: Joi.number().integer().min(4)
+      capacity: Joi.number().integer()
         .required()
         .error(() => 'Bus capacity is required'),
-      model: Joi.string().trim().strict().regex(/^[a-zA-Z]+$/)
-        .min(3)
+      model: Joi.string().trim().strict()
         .required()
         .error(() => 'bus model is required'),
     });
-    return Joi.validate(bus, schema);
+    return Joi.validate(bus, schema, validationOptions);
   }
 
   /**
@@ -108,7 +104,7 @@ class CheckForValidInput {
         .required()
         .error(() => 'Params must be integer!'),
     });
-    return Joi.validate(trip_id, schema);
+    return Joi.validate(trip_id, schema, validationOptions);
   }
 
   /**
@@ -121,7 +117,7 @@ class CheckForValidInput {
         .required()
         .error(() => 'Params must be integer!'),
     });
-    return Joi.validate(booking_id, schema);
+    return Joi.validate(booking_id, schema, validationOptions);
   }
 
   /**
@@ -134,10 +130,9 @@ class CheckForValidInput {
         .required()
         .error(() => 'Trip ID must be an Integer number!'),
       seat_number: Joi.number().integer()
-        .required()
         .error(() => 'Seat number must be an Integer number!'),
     });
-    return Joi.validate(trip_id, schema);
+    return Joi.validate(trip_id, schema, validationOptions);
   }
 
   /**
@@ -147,12 +142,12 @@ class CheckForValidInput {
    */
   static checkTripParams(filterTrip) {
     const schema = Joi.object().keys({
-      destination: Joi.string().trim().strict().lowercase()
+      destination: Joi.string().trim().strict().regex(/^[a-zA-Z]+$/)
         .error(() => 'Enter a valid lowercase string value'),
-      origin: Joi.string().trim().strict().lowercase()
+      origin: Joi.string().trim().strict().regex(/^[a-zA-Z]+$/)
         .error(() => 'Enter a valid lowercase string value'),
     });
-    return Joi.validate(filterTrip, schema);
+    return Joi.validate(filterTrip, schema, validationOptions);
   }
 }
 
