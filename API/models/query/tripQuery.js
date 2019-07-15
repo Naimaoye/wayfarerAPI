@@ -10,10 +10,20 @@ bus (number_plate, manufacturer, model, year, capacity, created_on)
 
 const getAllTripQuery = 'SELECT * FROM trip';
 
+const cancelAtripQuery = `UPDATE trip
+      SET status=$1, modified_on=$2
+      WHERE trip_id=$3 returning *`;
 
+
+const checkIfBusIsAvailableQuery = 'SELECT * FROM trip WHERE (trip_date = $1 AND bus_id = $2 AND status = $3)';
+
+const filterTripQuery = 'SELECT * FROM trip WHERE (destination = $1 OR origin = $2)';
 
 export {
     createTripQuery,
     createBusQuery,
     getAllTripQuery,
+    cancelAtripQuery,
+    checkIfBusIsAvailableQuery,
+    filterTripQuery
 };
