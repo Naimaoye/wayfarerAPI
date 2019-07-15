@@ -62,9 +62,37 @@ const trip = [
         status: 'active',
         modified_on: new Date()
        }
- ]
+ ];
+
+ const bookings =[
+     {
+        user_id: 1,
+        trip_id: 2,
+        created_on: new Date(),
+        bus_id: 1, 
+        trip_date: new Date("July 28, 2019 11:13:00") ,
+        seat_number: 23, 
+        first_name: 'oyedoyin', 
+        last_name: 'oyewale',
+        email: 'naimat@email.com'
+     },
+     {
+        user_id: 2,
+        trip_id: 3,
+        created_on: new Date(),
+        bus_id: 4, 
+        trip_date: new Date("July 31, 2019 12:13:00") ,
+        seat_number: 27, 
+        first_name: 'Adekola', 
+        last_name: 'Adeniji',
+        email: 'adekola@email.com'
+     }
+ 
+ ];
+
 export {
     users,
     bus,
-    trip
+    trip,
+    bookings
 };

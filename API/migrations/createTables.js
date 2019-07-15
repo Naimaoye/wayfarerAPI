@@ -63,6 +63,25 @@ const createTables = () => {
     console.log(err);
     pool.end();
   });
+  const Bookings = `CREATE TABLE IF NOT EXISTS
+    bookings (
+      booking_id SERIAL PRIMARY KEY,
+      user_id SERIAL NOT NULL,
+      trip_id SERIAL NOT NULL,
+      created_on TIMESTAMP DEFAULT Now(),
+      bus_id SERIAL NOT NULL,
+      trip_date TIMESTAMP NOT NULL,
+      seat_number INT NOT NULL,
+      first_name VARCHAR (128) NOT NULL,
+      last_name VARCHAR (128) NOT NULL,
+      email VARCHAR (355) NOT NULL
+      )`;
+  pool.query(Bookings).catch((err) => {
+    // eslint-disable-next-line no-console
+    console.log(err);
+    pool.end();
+  });
+  
 };
 
 
