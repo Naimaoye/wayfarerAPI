@@ -2,7 +2,8 @@
 import Db from './Db';
 import { createUserQuery } from '../models/query/userQuery';
 import { createBusQuery, createTripQuery } from '../models/query/tripQuery';
-import {users, bus, trip} from './seedData';
+import { bookTripQuery } from '../models/query/bookingsQuery'
+import {users, bus, trip, bookings} from './seedData';
 
  const seedData = () => {
 users.forEach( async (user)=>{
@@ -33,6 +34,16 @@ trip.forEach( async (tripIndex)=>{
   ]
   console.log(values);
   await Db.query(createTripQuery, values);
+});
+
+bookings.forEach( async (booking) => {
+  console.log("booking", booking);
+  const { user_id, trip_id, created_on, bus_id, trip_date, seat_number, first_name, last_name, email} = booking;
+  const values = [
+    user_id, trip_id, created_on, bus_id, trip_date, seat_number, first_name, last_name, email
+  ]
+  console.log(values);
+  await Db.query(bookTripQuery, values);
 });
 
 
