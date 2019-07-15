@@ -1,10 +1,10 @@
 import db from '../migrations/Db';
-import CheckForValidInput from '../helper/CheckForValidInput';
+import CheckForValidInput from '../helper/checkValidInput';
 import {
   bookTripQuery, getAtripQuery, findAuserQuery, findAbusQuery, checkBookingsQuery,
   checkIfBookingExistQuery, getAllBookingsUserQuery, getAllBookingsAdminQuery,
   deleteBookingQuery, updateBookingQuery,
-} from '../model/query/BookingsQuery';
+} from '../models/query/bookingsQuery';
 
 let seat_number;
 
@@ -189,7 +189,62 @@ static async getAllBookings(req, res) {
     }
   }
 
-
+/**
+       * users can change seat number after booking
+       * @param {*} req
+       * @param {*} res
+       */
+      static async changeSeat(req, res) {
+        try {
+          const values = [
+            req.body.seat_number,
+            req.user.email,
+            req.user.user_id,
+            req.params.booking_id,
+          ];
+          const bookings = await db.query(checkBookingsQuery,
+            [req.body.trip_id, req.body.seat_number]);
+          if (bookings.rows[0]) {
+            return res.status(400).json({
+              status: 'error',
+              error: 'Seat has been occuppied, choose another seat',
+            });
+          }
+    
+          const trip = await db.query(getAtripQuery, [req.body.trip_id]);
+          if (trip.rows[0].length <= 0) {
+            return res.status(404).json({
+              status: 'error',
+              error: 'No trip found!',
+            });
+          }
+    
+          const bus = await db.query(findAbusQuery, [trip.rows[0].bus_id]);
+          if (bus.rows[0].capacity < req.body.seat_number) {
+            return res.status(400).json({
+              status: 'error',
+              error: 'seat not available, choose a lower seat number',
+            });
+          }
+    
+          const userBooking = await db.query(updateBookingQuery, values);
+          if (!userBooking.rows[0]) {
+            return res.status(404).json({
+              status: 'error',
+              error: 'Not Found',
+            });
+          }
+          return res.status(200).json({
+            status: 'success',
+            data: userBooking.rows[0],
+          });
+        } catch (err) {
+          return res.status(400).json({
+            status: 'error',
+            error: 'Something went wrong, try again',
+          });
+        }
+      }
 
 }
 
