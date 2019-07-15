@@ -63,8 +63,8 @@ const createTables = () => {
     console.log(err);
     pool.end();
   });
-  
 };
+
 
 pool.on('remove', () => {
   // eslint-disable-next-line no-console
@@ -72,7 +72,6 @@ pool.on('remove', () => {
   process.exit(0);
 });
 
-
-module.exports = createTables;
+export default createTables;
 
 require('make-runnable');

@@ -12,4 +12,7 @@ after_success: npm run coverage
 branches:
   only:
     - develop
-    
+before_script:
+- psql -c 'create database testdbname;’ -U postgres
+services:
+- postgresql     

@@ -23,12 +23,22 @@ class Db {
             .query(queryString, params)
             .then((res) => {
                 resolve(res);
+                pool.end();
             })
             .catch((err) => {
                 reject(err);
+                pool.end();
             });
         });
     }
 }
+
+
+
+pool.on('remove', () => {
+    // eslint-disable-next-line no-console
+    console.log('client removed');
+    process.exit(0);
+  });
 
 export default Db;

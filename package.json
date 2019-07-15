@@ -4,11 +4,12 @@
   "description": "A transport booking API",
   "main": "index.js",
   "scripts": {
-    "test": "mocha  API/test -r @babel/register",
+    "test": "npm run migrate && mocha  API/test -r @babel/register",
     "start": "nodemon --exec babel-node API/app.js",
     "build": "babel src --out-dir dist",
     "serve": "node dist/app.js",
-    "migrations": "babel-node API/src/migrations/dropTables && babel-node API/src/migrations/createTables  && babel-node API/src/migrations/seeds"
+    "migrate": "babel-node ./API/migrations/dropTables.js default dropTables && babel-node ./API/migrations/createTables.js default createTables",
+    "seed" :  "babel-node ./API/migrations/seed.js default seedData"
   },
   "repository": {
     "type": "git",
