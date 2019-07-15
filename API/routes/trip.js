@@ -17,8 +17,8 @@ router.get('/trips', Authentication.verifyToken,
 
 // // admin and user can get all trips
 // router.get('/trips', Authentication.verifyToken, Trip.getAllTrips);
-/*
+
 // admin can cancel a trip
 router.patch('/trips/:trip_id', Authentication.verifyToken, Trip.cancelATrip);
-*/
+
 export default router;
