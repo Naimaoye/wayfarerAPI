@@ -118,6 +118,7 @@ class Trip {
         },
       });
     } catch (errors) {
+      console.log("err",errors);
       return res.status(400).json({
         status: 'error',
         error: 'Something went wrong, try again',
