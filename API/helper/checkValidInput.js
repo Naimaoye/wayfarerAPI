@@ -1,9 +1,9 @@
 import Joi from 'joi';
 
-// const validationOptions = {
-//   allowUnknown: true, // allow unknown keys that will be ignored
-//   stripUnknown: true, // remove unknown keys from the validated data
-// };
+const validationOptions = {
+     allowUnknown: true, // allow unknown keys that will be ignored
+     stripUnknown: true, // remove unknown keys from the validated data
+ };
 
 class CheckForValidInput {
   /**
@@ -31,7 +31,7 @@ class CheckForValidInput {
         .required()
         .error(() => 'last name field is required with min length of 3 and must be alphabet'),  
     });
-    return Joi.validate(user, schema);
+    return Joi.validate(user, schema, validationOptions);
   }
 
   /**  funtion to validate login inputs
@@ -45,7 +45,7 @@ class CheckForValidInput {
       password: Joi.string().trim().strict().required()
         .error(() => 'you must provide a correct password'),
     });
-    return Joi.validate(details, schema);
+    return Joi.validate(details, schema, validationOptions);
   }
 
 
@@ -58,17 +58,19 @@ class CheckForValidInput {
       bus_id: Joi.number().integer()
         .error(() => 'bus id is required and should be an integer number'),
       origin: Joi.string().trim()
-        .required()
-        .error(() => 'origin is required and should not be less than 3 characters and must be lowercase'),
+          .required()
+          .error(() => 'origin is required and should not be less than 3 characters and must be lowercase'),
       destination: Joi.string().trim()
         .required()
         .error(() => 'destination is required and should not be less than 3 characters and must be lowercase'),
       trip_date: Joi.string()
+        .required()
         .error(() => 'trip date is required'),
       fare: Joi.number()
+        .required()
         .error(() => 'fare is required and can not be less than $1'),
     });
-    return Joi.validate(trip, schema);
+    return Joi.validate(trip, schema, validationOptions);
   }
 
 
@@ -80,7 +82,7 @@ class CheckForValidInput {
     const schema = Joi.object().keys({
       number_plate: Joi.string().trim().strict().regex(/^[A-Za-z]{3}-[0-9]{3}-[A-Za-z]{2}$/)
         .required()
-        .error(() => 'Number plate is required with this Nig format xxx-xxx-xxx'),
+        .error(() => 'Number plate is required with this Nig format xxx-xxx-xx'),
       manufacturer: Joi.string().trim().strict().regex(/^[a-zA-Z]+$/)
         .min(3)
         .required()

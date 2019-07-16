@@ -13,7 +13,7 @@ router.post('/trips/bus', Authentication.verifyToken, Trip.addBusForTrip);
 // user can filter trips using destination or origin, while admin can view all trip
 router.get('/trips', Authentication.verifyToken,
   Trip.getTripByDestOrOrigin,
-  Trip.getAllTrips);
+Trip.getAllTrips);
 
 // // admin and user can get all trips
 // router.get('/trips', Authentication.verifyToken, Trip.getAllTrips);
