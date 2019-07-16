@@ -11,8 +11,9 @@
     "migrate": "babel-node ./API/migrations/dropTables.js default dropTables && babel-node ./API/migrations/createTables.js default createTables",
     "seed" :  "babel-node ./API/migrations/seed.js default seedData",
     "clean": "rm -rf build && mkdir build",
-    "start": "node build/app.js",
-    "heroku-migrate": "node build/API/migrations/dropTables.js default dropTables && node build/API/migrations/createTables.js default createTables"
+    "start": "babel-node build/app.js",
+    "heroku-migrate": "node build/API/migrations/dropTables.js default dropTables && node build/API/migrations/createTables.js default createTables",
+    "heroku-seed": "node build/API/migrations/seed.js default seedData"
   },
   "repository": {
     "type": "git",
