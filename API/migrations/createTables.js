@@ -18,7 +18,7 @@ const createTables = () => {
     user_id SERIAL PRIMARY KEY,
     first_name VARCHAR (128) NOT NULL,
     last_name VARCHAR(128) NOT NULL,
-    address TEXT NOT NULL,
+    address TEXT,
     email VARCHAR (355) UNIQUE NOT NULL,
     password VARCHAR(128) NOT NULL,
     created_on TIMESTAMP DEFAULT Now(),

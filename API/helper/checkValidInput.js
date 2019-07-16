@@ -26,10 +26,7 @@ class CheckForValidInput {
       password: Joi.string().trim().strict()
         .min(6)
         .required()
-        .error(() => 'Password field is required with mininum 6 characters'),
-      address: Joi.string().trim()
-        .required()
-        .error(() => 'last name field is required with min length of 3 and must be alphabet'),  
+        .error(() => 'Password field is required with mininum 6 characters'),  
     });
     return Joi.validate(user, schema, validationOptions);
   }

@@ -12,7 +12,7 @@ class User {
        * @param {*} res
        */
   static async createUser(req, res) {
-    const { error } = req.body;
+    const { error } = CheckForValidInput.createUser(req.body);
     if (error) {
       console.log("validation err", error);
       return res.status(400).json({
@@ -25,7 +25,6 @@ class User {
       req.body.email,
       req.body.first_name,
       req.body.last_name,
-      req.body.address,
       hashpassword,
       false,
       new Date(),
