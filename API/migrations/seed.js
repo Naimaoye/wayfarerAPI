@@ -8,9 +8,9 @@ import {users, bus, trip, bookings} from './seedData';
  const seedData = () => {
 users.forEach( async (user)=>{
   console.log("user", user);
-  const { email, first_name, last_name, address, password, is_admin, created_on, modified_on} = user;
+  const { email, first_name, last_name, password, is_admin, created_on, modified_on} = user;
   const values = [
-    email, first_name, last_name, address, password, is_admin, created_on, modified_on
+    email, first_name, last_name, password, is_admin, created_on, modified_on
   ]
   console.log(values)
   await Db.query(createUserQuery, values);
