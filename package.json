@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "npm run migrate && mocha  API/test -r @babel/register",
-    "start": "nodemon --exec babel-node API/app.js",
+    "start": "babel-node API/app.js",
+    "start-dev": "nodemon --exec babel-node API/app.js",
     "serve": "node dist/app.js",
     "migrate": "babel-node ./API/migrations/dropTables.js default dropTables && babel-node ./API/migrations/createTables.js default createTables",
     "seed": "babel-node ./API/migrations/seed.js default seedData",
