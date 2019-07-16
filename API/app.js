@@ -12,8 +12,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 //API routes
-app.use('/', user);
-app.use('/', trip);
+app.use('/api/v1/auth', user);
+app.use('/api/v1', trip);
 //home page route
 app.get('/', (req, res) => res.status(200).json({
   status: 200,
