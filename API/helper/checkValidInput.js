@@ -1,9 +1,9 @@
 import Joi from 'joi';
 
-const validationOptions = {
-  allowUnknown: true, // allow unknown keys that will be ignored
-  stripUnknown: true, // remove unknown keys from the validated data
-};
+// const validationOptions = {
+//   allowUnknown: true, // allow unknown keys that will be ignored
+//   stripUnknown: true, // remove unknown keys from the validated data
+// };
 
 class CheckForValidInput {
   /**
@@ -23,11 +23,15 @@ class CheckForValidInput {
         .min(3)
         .required()
         .error(() => 'last name field is required with min length of 3 and must be alphabet'),
-      password: Joi.string().trim().strict().regex(/^[a-zA-Z0-9]{6,30}$/).trim().strict()
-      .required()
+      password: Joi.string().trim().strict()
+        .min(6)
+        .required()
         .error(() => 'Password field is required with mininum 6 characters'),
+      address: Joi.string().trim()
+        .required()
+        .error(() => 'last name field is required with min length of 3 and must be alphabet'),  
     });
-    return Joi.validate(user, schema, validationOptions);
+    return Joi.validate(user, schema);
   }
 
   /**  funtion to validate login inputs
@@ -41,7 +45,7 @@ class CheckForValidInput {
       password: Joi.string().trim().strict().required()
         .error(() => 'you must provide a correct password'),
     });
-    return Joi.validate(details, schema, validationOptions);
+    return Joi.validate(details, schema);
   }
 
 
@@ -64,7 +68,7 @@ class CheckForValidInput {
       fare: Joi.number()
         .error(() => 'fare is required and can not be less than $1'),
     });
-    return Joi.validate(trip, schema, validationOptions);
+    return Joi.validate(trip, schema);
   }
 
 
