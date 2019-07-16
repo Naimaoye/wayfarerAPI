@@ -110,7 +110,6 @@ class User {
       // return success message
       return res.status(200).json({
         status: 'success',
-        token,
         data: {
           user_id,
           email,
@@ -119,6 +118,7 @@ class User {
           address,
           is_admin,
           created_on,
+          token,
         },
       });
     } catch (errors) {
