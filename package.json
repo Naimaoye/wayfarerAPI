@@ -9,10 +9,9 @@
     "build": "babel API --out-dir build",
     "serve": "node dist/app.js",
     "migrate": "babel-node ./API/migrations/dropTables.js default dropTables && babel-node ./API/migrations/createTables.js default createTables",
-    "seed" :  "babel-node ./API/migrations/seed.js default seedData",
+    "seed" : "babel-node ./API/migrations/seed.js default seedData",
     "clean": "rm -rf build && mkdir build",
-    "start": "node build/app.js",
-    "heroku-migrate": "node build/API/migrations/dropTables.js default dropTables && node build/API/migrations/createTables.js default createTables"
+    "start": "babel-node build/app.js"
   },
   "repository": {
     "type": "git",
@@ -31,6 +30,7 @@
   },
   "homepage": "https://github.com/Naimaoye/wayfarerAPI#readme",
   "dependencies": {
+    "@babel/node": "^7.4.5",
     "@babel/cli": "^7.4.4",
     "@babel/core": "^7.4.5",
     "@babel/polyfill": "^7.4.4",
@@ -49,7 +49,6 @@
     "pg": "^7.11.0"
   },
   "devDependencies": {
-    "@babel/node": "^7.4.5",
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
     "coveralls": "^3.0.4",
