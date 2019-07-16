@@ -4,6 +4,8 @@ import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 import user from './routes/user';
 import trip from './routes/trip';
+import bookings from './routes/bookings';
+
 
 dotenv.config();
 const app = express();
@@ -14,6 +16,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //API routes
 app.use('/api/v1/auth', user);
 app.use('/api/v1', trip);
+app.use('/api/v1', bookings);
 //home page route
 app.get('/', (req, res) => res.status(200).json({
   status: 200,
