@@ -23,8 +23,8 @@ class CheckForValidInput {
         .min(3)
         .required()
         .error(() => 'last name field is required with min length of 3 and must be alphabet'),
-      password: Joi.string().trim().strict().regex(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,}$/)
-        .required()
+      password: Joi.string().trim().strict().regex(/^[a-zA-Z0-9]{6,30}$/).trim().strict()
+      .required()
         .error(() => 'Password field is required with mininum 6 characters'),
     });
     return Joi.validate(user, schema, validationOptions);
