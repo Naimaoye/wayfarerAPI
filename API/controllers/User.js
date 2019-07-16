@@ -14,6 +14,7 @@ class User {
   static async createUser(req, res) {
     const { error } = CheckForValidInput.createUser(req.body);
     if (error) {
+      console.log("validation err", error);
       return res.status(400).json({
         status: 'error',
         error: error.details[0].message,
@@ -42,7 +43,7 @@ class User {
         status: 'success',
         data: {
           token,
-          ...user,
+          user: rows,
         },
       });
     } catch (errors) {

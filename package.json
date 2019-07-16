@@ -5,13 +5,11 @@
   "main": "index.js",
   "scripts": {
     "test": "npm run migrate && mocha  API/test -r @babel/register",
-    "dev-start": "nodemon --exec babel-node API/app.js",
-    "build": "babel API --out-dir build",
+    "start": "nodemon --exec babel-node API/app.js",
     "serve": "node dist/app.js",
     "migrate": "babel-node ./API/migrations/dropTables.js default dropTables && babel-node ./API/migrations/createTables.js default createTables",
     "seed": "babel-node ./API/migrations/seed.js default seedData",
-    "clean": "rm -rf build && mkdir build",
-    "start": "babel-node build/app.js"
+    "clean": "rm -rf build && mkdir build"
   },
   "repository": {
     "type": "git",
