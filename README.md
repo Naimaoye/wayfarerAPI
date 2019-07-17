@@ -37,7 +37,7 @@ To install and run this project you would need to have listed stack installed:
 - To run:
 
 ```sh
-git clone <https://github.com/tobslob/WayFarer-API.git>
+git clone <https://github.com/Naimaoye/wayfarerAPI.git>
 cd WayFarer-API
 npm install
 npm run start:dev
@@ -84,7 +84,7 @@ npm test
 ## API
 
 The API is currently in version 1 (v1) and is hosted at
-[https://way-farer-app.herokuapp.com/](https://naimat-wayfarer.herokuapp.com/)
+[https://naimat-wayfarer.herokuapp.com/](https://naimat-wayfarer.herokuapp.com/)
 
 ## API Documentation
 
