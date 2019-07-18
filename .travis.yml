@@ -1,18 +1,19 @@
 language: node_js
 node_js:
-  - "10.15.3"
-install:
-  - "npm install"
+  - "stable"
+notifications:
+  email: false
+services:
+  - postgresql
 cache:
   directories:
-  - "node_modules"
-script:
-  - npm run test
-after_success: npm run coverage
-branches:
-  only:
-    - develop
+    - node_modules
 before_script:
-- psql -c 'create database testdbname;’ -U postgres
-services:
-- postgresql     
+  - npm install
+  - psql -c 'create database travis_ci_test;' -U postgres
+script: 
+  - npm run test
+after_success:
+  - npm run coverage
+  - npm run report-coverage
+  - npm run coveralls
