@@ -1,6 +1,6 @@
 import db from '../migrations/Db';
 import CheckForValidInput from '../helper/checkValidInput';
-import Helper from '../helper/Helper';
+import Helper from '../helper/encrypt';
 import Authentication from '../middleware/Authentication';
 import { createUserQuery, loginUserQuery } from '../models/query/userQuery';
 
