@@ -36,7 +36,7 @@ class Bookings {
       if (!rows[0]) {
         return res.status(404).json({
           status: 'error',
-          error: 'Trip not found!',
+          error: 'Trip does not exist',
         });
       }
 
@@ -64,13 +64,13 @@ class Bookings {
         });
       }
 
-      // const bus = await db.query(findAbusQuery, [rows[0].bus_id]);
-      // if (bus.rows[0].capacity < seat_number) {
-      //   return res.status(400).json({
-      //     status: 'error',
-      //     error: 'seat not available, choose a lower seat number',
-      //   });
-      // }
+      const bus = await db.query(findAbusQuery, [rows[0].bus_id]);
+      if (bus.rows[0].capacity < seat_number) {
+        return res.status(400).json({
+          status: 'error',
+          error: 'seat not available, choose a lower seat number',
+        });
+      }
 
       const values = [
         req.user.user_id,
@@ -107,9 +107,9 @@ class Bookings {
         },
       });
     } catch (errors) {
-      return res.status(400).json({
+      return res.status(500).json({
         status: 'error',
-        error: 'Something went wrong, try again',
+        error: 'Internal server error',
       });
     }
   }
@@ -147,8 +147,8 @@ static async getAllBookings(req, res) {
         data: rows,
       });
     } catch (error) {
-      return res.status(400).json({
-        error: 'Something went wrong, try again',
+      return res.status(500).json({
+        error: 'Internal server error',
       });
     }
   }
@@ -182,9 +182,9 @@ static async getAllBookings(req, res) {
         },
       });
     } catch (errors) {
-      return res.status(400).json({
+      return res.status(500).json({
         status: 'error',
-        error: 'Something went wrong, try again',
+        error: 'Internal server error',
       });
     }
   }
@@ -239,9 +239,9 @@ static async getAllBookings(req, res) {
             data: userBooking.rows[0],
           });
         } catch (err) {
-          return res.status(400).json({
+          return res.status(500).json({
             status: 'error',
-            error: 'Something went wrong, try again',
+            error: 'Internal server error',
           });
         }
       }
