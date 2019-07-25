@@ -14,7 +14,6 @@ class User {
   static async createUser(req, res) {
     const { error } = CheckForValidInput.createUser(req.body);
     if (error) {
-      console.log("validation err", error);
       return res.status(400).json({
         status: 'error',
         error: error.details[0].message,
@@ -49,13 +48,12 @@ class User {
       if (errors.routine === '_bt_check_unique') {
         return res.status(409).json({
           status: 'error',
-          error: 'User already exist',
+          error: 'email has been used',
         });
       }
-      console.log(errors);
-      return res.status(400).json({
+      return res.status(500).json({
         status: 'error',
-        error: 'Something went wrong, try again',
+        error: 'Internal server error',
       });
     }
   }
@@ -82,7 +80,7 @@ class User {
       if (!rows[0]) {
         return res.status(404).json({
           status: 'error',
-          error: 'User not Found',
+          error: 'email/password does not exist',
         });
       }
 
@@ -122,9 +120,9 @@ class User {
         },
       });
     } catch (errors) {
-      return res.status(400).json({
+      return res.status(500).json({
         status: 'error',
-        error: 'Something went wrong, try again',
+        error: 'internal server error',
       });
     }
   }

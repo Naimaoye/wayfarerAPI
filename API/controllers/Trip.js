@@ -18,7 +18,7 @@ class Trip {
     if (!req.user.is_admin) {
       return res.status(403).json({
         status: 'error',
-        error: 'Unauthorized!, Admin only route',
+        error: 'Unauthorized!, contact your admin',
       });
     }
 
@@ -51,9 +51,9 @@ class Trip {
           error: 'Bus already exist!',
         });
       }
-      return res.status(400).json({
+      return res.status(500).json({
         status: 'error',
-        error: 'Something went wrong, try again',
+        error: 'Internal server error',
       });
     }
   }
@@ -68,7 +68,7 @@ class Trip {
     if (!req.user.is_admin) {
       return res.status(403).json({
         status: 'error',
-        error: 'Unauthorized!, Admin only route',
+        error: 'Unauthorized!, contact your admin',
       });
     }
 
@@ -119,9 +119,9 @@ class Trip {
       });
     } catch (errors) {
       console.log("err",errors);
-      return res.status(400).json({
+      return res.status(500).json({
         status: 'error',
-        error: 'Something went wrong, try again',
+        error: 'Internal server error',
       });
     }
   }
@@ -145,8 +145,8 @@ class Trip {
         data: rows,
       });
     } catch (error) {
-      return res.status(400).json({
-        error: 'Something went wrong, try again',
+      return res.status(500).json({
+        error: 'Internal server error',
       });
     }
   }
@@ -160,7 +160,7 @@ class Trip {
     // check for admin user
     if (!req.user.is_admin) {
       return res.status(403).json({
-        error: 'Unauthorized!, Admin only route',
+        error: 'Unauthorized!, contact your admin',
       });
     }
     const { error } = CheckForValidInput.checkParams(req.params);
@@ -191,9 +191,9 @@ class Trip {
         },
       });
     } catch (err) {
-      return res.status(400).json({
+      return res.status(500).json({
         status: 'error',
-        error: 'Something went wrong, try again',
+        error: 'Internal server error',
       });
     }
   }
@@ -227,9 +227,9 @@ class Trip {
           data: rows,
         });
       } catch (errors) {
-        return res.status(400).json({
+        return res.status(500).json({
           status: 'error',
-          error: 'Something went wrong, try again',
+          error: 'Internal server error',
         });
       }
     }
